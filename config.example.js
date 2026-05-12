@@ -6,5 +6,5 @@
 // ─────────────────────────────────────────────────────────────
 
 const CONFIG = {
-  GEMINI_API_KEY = AIzaSyAaRRVVpQ8RC-B6blROtw7bURkymnsP5O8
+  GEMINI_API_KEY = "Paste Your Gemini API Key Here"
 };
