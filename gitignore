@@ -1,0 +1,24 @@
+# ── API Keys & Secrets ──────────────────────────
+config.js
+.env
+.env.local
+.env.*
+
+# ── OS Files ─────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor Files ─────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+
+# ── Logs ─────────────────────────────────────────
+*.log
+logs/
+
+# ── Misc ─────────────────────────────────────────
+node_modules/
+dist/

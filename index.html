@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="config.js"></script>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CampusMind Pro</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- Ambient background -->
+<div class="ambient-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+</div>
+
+<!-- Loading Screen -->
+<div id="loader" class="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" stroke="url(#lg1)" stroke-width="2.5"/>
+        <path d="M18 22h24M18 30h16M18 38h20" stroke="url(#lg2)" stroke-width="2.5" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="lg1" x1="0" y1="0" x2="60" y2="60">
+            <stop offset="0%" stop-color="#FF6B47"/>
+            <stop offset="100%" stop-color="#C4845A"/>
+          </linearGradient>
+          <linearGradient id="lg2" x1="0" y1="0" x2="60" y2="0">
+            <stop offset="0%" stop-color="#FF6B47"/>
+            <stop offset="100%" stop-color="#FFB347"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="loader-text">
+      <span class="loader-brand">CampusMind</span>
+      <span class="loader-pro">PRO</span>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    <p class="loader-msg" id="loaderMsg">Initialising AI modules…</p>
+  </div>
+</div>
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <svg width="36" height="36" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="28" stroke="url(#navLg)" stroke-width="2.5"/>
+        <path d="M18 22h24M18 30h16M18 38h20" stroke="url(#navLg2)" stroke-width="2.5" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="navLg" x1="0" y1="0" x2="60" y2="60">
+            <stop offset="0%" stop-color="#FF6B47"/><stop offset="100%" stop-color="#C4845A"/>
+          </linearGradient>
+          <linearGradient id="navLg2" x1="0" y1="0" x2="60" y2="0">
+            <stop offset="0%" stop-color="#FF6B47"/><stop offset="100%" stop-color="#FFB347"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div>
+        <div class="brand-name">CampusMind</div>
+        <div class="brand-tag">PRO</div>
+      </div>
+    </div>
+    <button class="sidebar-toggle" id="sidebarToggle">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+
+  <ul class="nav-list">
+    <li class="nav-item active" data-module="home">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Dashboard</span>
+      <span class="nav-glow"></span>
+    </li>
+    <li class="nav-item" data-module="study">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Study Companion</span>
+      <span class="nav-badge">LMS</span>
+      <span class="nav-glow"></span>
+    </li>
+    <li class="nav-item" data-module="code">
+      <span class="nav-icon">🔍</span>
+      <span class="nav-label">Code Reviewer</span>
+      <span class="nav-glow"></span>
+    </li>
+    <li class="nav-item" data-module="interview">
+      <span class="nav-icon">🎤</span>
+      <span class="nav-label">Mock Interviewer</span>
+      <span class="nav-glow"></span>
+    </li>
+    <li class="nav-item" data-module="proctor">
+      <span class="nav-icon">🛡️</span>
+      <span class="nav-label">Exam Proctoring</span>
+      <span class="nav-glow"></span>
+    </li>
+    <li class="nav-item" data-module="present">
+      <span class="nav-icon">🎯</span>
+      <span class="nav-label">Presentation Coach</span>
+      <span class="nav-glow"></span>
+    </li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <div class="system-status">
+      <span class="status-dot"></span>
+      <span>All Systems Online</span>
+    </div>
+    <div class="version-tag">v2.0 • Offline Ready</div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content" id="mainContent">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title" id="pageTitle">Dashboard</h1>
+      <div class="breadcrumb" id="breadcrumb">Home / Overview</div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search modules, features…" id="globalSearch"/>
+      </div>
+      <div class="topbar-avatar">GGU</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ HOME MODULE ═══════════════ -->
+  <section class="module-section active" id="mod-home">
+    <div class="hero-banner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">🎓 Godavari Global University × TechWing</div>
+        <h2 class="hero-title">One Platform.<br/>Five AI Superpowers.</h2>
+        <p class="hero-desc">Free. Offline. Private. Built for students, faculty & developers — no subscriptions, no cloud uploads, no limits.</p>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="switchModule('study')">Get Started →</button>
+          <button class="btn-ghost" onclick="scrollToCards()">Explore Modules ↓</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-rings">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+          <div class="hero-core">AI</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+      <div class="stat-card"><div class="stat-num" data-target="5">0</div><div class="stat-label">AI Modules</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="100">0</div><div class="stat-label">% Offline</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="0">₹0</div><div class="stat-label">Cost / Seat</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="2">0</div><div class="stat-label">Lakhs Saved / Yr</div></div>
+    </div>
+
+    <!-- Module Cards Grid -->
+    <div class="section-title" id="moduleCardsAnchor">
+      <span class="section-line"></span>
+      <h3>AI Modules</h3>
+      <span class="section-line"></span>
+    </div>
+    <div class="modules-grid">
+      <div class="mod-card" onclick="switchModule('study')">
+        <div class="mod-card-icon">📚</div>
+        <div class="mod-card-badge">LMS</div>
+        <h4>Study Companion</h4>
+        <p>PDF chat, quiz generator, flashcards, voice Q&A — your AI tutor.</p>
+        <div class="mod-card-tags">
+          <span>PDF Chat</span><span>Quizzes</span><span>Flashcards</span>
+        </div>
+        <div class="mod-card-arrow">→</div>
+      </div>
+      <div class="mod-card" onclick="switchModule('code')">
+        <div class="mod-card-icon">🔍</div>
+        <h4>Code Reviewer</h4>
+        <p>Bug detection, security scans, style checks — offline, private.</p>
+        <div class="mod-card-tags">
+          <span>Bug Scan</span><span>Security</span><span>PEP8</span>
+        </div>
+        <div class="mod-card-arrow">→</div>
+      </div>
+      <div class="mod-card featured" onclick="switchModule('interview')">
+        <div class="mod-card-icon">🎤</div>
+        <div class="mod-card-badge featured-badge">⭐ Featured</div>
+        <h4>Mock Interviewer</h4>
+        <p>Voice-based technical & HR prep with posture + filler feedback.</p>
+        <div class="mod-card-tags">
+          <span>Voice AI</span><span>Posture</span><span>Scoring</span>
+        </div>
+        <div class="mod-card-arrow">→</div>
+      </div>
+      <div class="mod-card" onclick="switchModule('proctor')">
+        <div class="mod-card-icon">🛡️</div>
+        <h4>Exam Proctoring</h4>
+        <p>Face & phone detection, gaze logs — privacy-first, no recording.</p>
+        <div class="mod-card-tags">
+          <span>YOLO</span><span>Privacy</span><span>CSV Log</span>
+        </div>
+        <div class="mod-card-arrow">→</div>
+      </div>
+      <div class="mod-card" onclick="switchModule('present')">
+        <div class="mod-card-icon">🎯</div>
+        <h4>Presentation Coach</h4>
+        <p>Real-time gaze, pace, gestures — get graded A–F every session.</p>
+        <div class="mod-card-tags">
+          <span>Eye Contact</span><span>Pace</span><span>Scorecard</span>
+        </div>
+        <div class="mod-card-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="tech-strip">
+      <div class="tech-label">Powered by</div>
+      <div class="tech-items">
+        <div class="tech-item">🧠 Gemini API</div>
+        <div class="tech-item">🎙️ Whisper</div>
+        <div class="tech-item">📦 YOLO</div>
+        <div class="tech-item">🖐️ MediaPipe</div>
+        <div class="tech-item">🎛️ Gradio</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ STUDY COMPANION (LMS) ═══════════════ -->
+  <section class="module-section" id="mod-study">
+    <div class="module-header">
+      <div class="module-icon-large">📚</div>
+      <div>
+        <h2>Study Companion <span class="lms-badge">LMS</span></h2>
+        <p>Your AI-powered Learning Management System — chat, quiz, flashcard, summarise.</p>
+      </div>
+    </div>
+
+    <!-- LMS Tab Bar -->
+    <div class="lms-tabs">
+      <button class="lms-tab active" data-ltab="courses">📖 My Courses</button>
+      <button class="lms-tab" data-ltab="pdfchat">💬 PDF Chat</button>
+      <button class="lms-tab" data-ltab="quiz">🧪 Quiz Generator</button>
+      <button class="lms-tab" data-ltab="flashcards">🃏 Flashcards</button>
+      <button class="lms-tab" data-ltab="summary">📄 Summariser</button>
+      <button class="lms-tab" data-ltab="voiceqa">🎙️ Voice Q&A</button>
+    </div>
+
+    <!-- Courses Tab -->
+    <div class="lms-panel active" id="ltab-courses">
+      <div class="lms-course-grid">
+        <div class="course-card" style="--cc:#FF6B47">
+          <div class="course-icon">🐍</div>
+          <div class="course-info">
+            <h4>Python Programming</h4>
+            <p>6 chapters · 24 lessons</p>
+            <div class="course-progress"><div class="progress-fill" style="width:68%"></div></div>
+            <span class="progress-pct">68% Complete</span>
+          </div>
+          <div class="course-actions">
+            <button class="btn-sm" onclick="lmsOpenCourse('Python')">Continue →</button>
+          </div>
+        </div>
+        <div class="course-card" style="--cc:#C4845A">
+          <div class="course-icon">🗄️</div>
+          <div class="course-info">
+            <h4>Database Management</h4>
+            <p>5 chapters · 18 lessons</p>
+            <div class="course-progress"><div class="progress-fill" style="width:45%"></div></div>
+            <span class="progress-pct">45% Complete</span>
+          </div>
+          <div class="course-actions">
+            <button class="btn-sm" onclick="lmsOpenCourse('DBMS')">Continue →</button>
+          </div>
+        </div>
+        <div class="course-card" style="--cc:#FFB347">
+          <div class="course-icon">🌐</div>
+          <div class="course-info">
+            <h4>Web Development</h4>
+            <p>8 chapters · 32 lessons</p>
+            <div class="course-progress"><div class="progress-fill" style="width:22%"></div></div>
+            <span class="progress-pct">22% Complete</span>
+          </div>
+          <div class="course-actions">
+            <button class="btn-sm" onclick="lmsOpenCourse('WebDev')">Start →</button>
+          </div>
+        </div>
+        <div class="course-card add-course">
+          <div class="add-icon">+</div>
+          <p>Upload PDF / Textbook</p>
+          <button class="btn-sm" onclick="switchLmsTab('pdfchat')">Upload →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF Chat Tab -->
+    <div class="lms-panel" id="ltab-pdfchat">
+      <div class="pdfchat-layout">
+        <div class="pdfchat-sidebar">
+          <div class="upload-zone" id="pdfDropZone" onclick="document.getElementById('pdfInput').click()">
+            <div class="upload-icon">📎</div>
+            <p>Drop PDF here or click to upload</p>
+            <span>Textbooks, notes, slides…</span>
+            <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="handlePdfUpload(event)"/>
+          </div>
+          <div id="pdfFileList" class="pdf-file-list"></div>
+        </div>
+        <div class="pdfchat-main">
+          <div class="chat-messages" id="pdfChatMessages">
+            <div class="chat-bubble ai">
+              <div class="bubble-avatar">🤖</div>
+              <div class="bubble-text">Hello! Upload a PDF and I'll help you understand it. Ask me anything — explain concepts, find information, or quiz you on the content!</div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="pdfChatInput" placeholder="Ask anything about your PDF…" onkeypress="if(event.key==='Enter') sendPdfChat()"/>
+            <button class="btn-send" onclick="sendPdfChat()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz Generator Tab -->
+    <div class="lms-panel" id="ltab-quiz">
+      <div class="quiz-setup" id="quizSetup">
+        <h3>⚡ Generate Quiz</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Topic / Subject</label>
+            <input type="text" id="quizTopic" placeholder="e.g. Python OOPs, SQL Joins…"/>
+          </div>
+          <div class="form-group">
+            <label>Question Type</label>
+            <select id="quizType">
+              <option value="mcq">Multiple Choice (MCQ)</option>
+              <option value="tf">True / False</option>
+              <option value="fib">Fill in the Blanks</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Difficulty</label>
+            <select id="quizDiff">
+              <option>Easy</option><option selected>Medium</option><option>Hard</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>No. of Questions</label>
+            <input type="number" id="quizCount" value="5" min="1" max="20"/>
+          </div>
+        </div>
+        <button class="btn-primary full-width" onclick="generateQuiz()">🧪 Generate Quiz</button>
+      </div>
+      <div class="quiz-area" id="quizArea" style="display:none"></div>
+    </div>
+
+    <!-- Flashcards Tab -->
+    <div class="lms-panel" id="ltab-flashcards">
+      <div class="flashcard-controls">
+        <input type="text" id="flashTopic" placeholder="Topic for flashcards (e.g. OS concepts)…"/>
+        <button class="btn-primary" onclick="generateFlashcards()">🃏 Generate Cards</button>
+      </div>
+      <div class="flashcard-deck" id="flashcardDeck">
+        <div class="flashcard-empty">Enter a topic and click Generate to create your flashcard deck</div>
+      </div>
+    </div>
+
+    <!-- Summariser Tab -->
+    <div class="lms-panel" id="ltab-summary">
+      <div class="summary-layout">
+        <div class="summary-input-col">
+          <h3>📄 Text / Chapter Summariser</h3>
+          <textarea id="summaryInput" rows="10" placeholder="Paste your text, chapter, or notes here…"></textarea>
+          <div class="summary-options">
+            <label><input type="radio" name="sumtype" value="bullets" checked/> Bullet Points</label>
+            <label><input type="radio" name="sumtype" value="onepage"/> One-Page</label>
+            <label><input type="radio" name="sumtype" value="mindmap"/> Mind Map Text</label>
+          </div>
+          <button class="btn-primary full-width" onclick="generateSummary()">📝 Summarise</button>
+        </div>
+        <div class="summary-output-col">
+          <h3>📋 Summary Output</h3>
+          <div class="summary-output" id="summaryOutput">Your summary will appear here…</div>
+          <button class="btn-ghost full-width" onclick="copySummary()" style="margin-top:10px">📋 Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voice Q&A Tab -->
+    <div class="lms-panel" id="ltab-voiceqa">
+      <div class="voice-qa-center">
+        <div class="voice-orb" id="voiceOrb" onclick="toggleVoiceQA()">
+          <div class="voice-rings"><div class="vr vr1"></div><div class="vr vr2"></div><div class="vr vr3"></div></div>
+          <div class="voice-mic">🎙️</div>
+        </div>
+        <p class="voice-instruction" id="voiceInstruction">Tap the orb to speak your question</p>
+        <div class="voice-transcript" id="voiceTranscript"></div>
+        <div class="voice-answer" id="voiceAnswer"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CODE REVIEWER ═══════════════ -->
+  <section class="module-section" id="mod-code">
+    <div class="module-header">
+      <div class="module-icon-large">🔍</div>
+      <div>
+        <h2>Code Reviewer</h2>
+        <p>AI-powered bug detection, security scan & style enforcement — fully offline, no code leaves your machine.</p>
+      </div>
+    </div>
+
+    <div class="code-layout">
+      <div class="code-input-panel">
+        <div class="code-toolbar">
+          <select id="codeLang" class="lang-select">
+            <option value="python">Python (.py)</option>
+            <option value="javascript">JavaScript (.js)</option>
+            <option value="java">Java (.java)</option>
+            <option value="cpp">C++ (.cpp)</option>
+            <option value="sql">SQL (.sql)</option>
+          </select>
+          <div class="code-checks">
+            <label><input type="checkbox" id="chkBugs" checked/> Bugs</label>
+            <label><input type="checkbox" id="chkSecurity" checked/> Security</label>
+            <label><input type="checkbox" id="chkStyle" checked/> Style</label>
+            <label><input type="checkbox" id="chkFix" checked/> Fix Suggestions</label>
+          </div>
+        </div>
+        <div class="code-editor-wrap">
+          <div class="code-gutter" id="codeGutter"></div>
+          <textarea id="codeEditor" class="code-editor" placeholder="// Paste your code here…&#10;// CampusMind Pro will review it privately and offline&#10;&#10;def calculate_discount(price, discount):&#10;    secret_key = 'abc123'   # &lt;-- security issue&#10;    result = price - discount  # &lt;-- no validation&#10;    return result" spellcheck="false" oninput="updateGutter()"></textarea>
+        </div>
+        <div class="code-btn-row">
+          <button class="btn-primary" onclick="reviewCode()">🔍 Review Code</button>
+          <button class="btn-ghost" onclick="clearCode()">🗑 Clear</button>
+          <button class="btn-ghost" onclick="loadSampleCode()">📋 Load Sample</button>
+        </div>
+      </div>
+
+      <div class="code-report-panel" id="codeReportPanel">
+        <div class="report-placeholder" id="reportPlaceholder">
+          <div class="placeholder-icon">🛡️</div>
+          <p>Review results will appear here</p>
+          <span>Supports Python, JS, Java, C++, SQL</span>
+        </div>
+        <div class="report-content" id="reportContent" style="display:none">
+          <div class="report-header">
+            <h3>Review Report</h3>
+            <div class="report-score-badge" id="reportScoreBadge">—</div>
+          </div>
+          <div class="report-tabs">
+            <button class="rtab active" data-rtab="bugs">🐛 Bugs</button>
+            <button class="rtab" data-rtab="security">🔐 Security</button>
+            <button class="rtab" data-rtab="style">🎨 Style</button>
+            <button class="rtab" data-rtab="fixes">✅ Fixes</button>
+          </div>
+          <div id="rtab-bugs" class="rtab-content active"></div>
+          <div id="rtab-security" class="rtab-content"></div>
+          <div id="rtab-style" class="rtab-content"></div>
+          <div id="rtab-fixes" class="rtab-content"></div>
+          <button class="btn-ghost full-width" style="margin-top:16px" onclick="exportHTMLReport()">⬇ Export HTML Report</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MOCK INTERVIEWER ═══════════════ -->
+  <section class="module-section" id="mod-interview">
+    <div class="module-header">
+      <div class="module-icon-large">🎤</div>
+      <div>
+        <h2>Mock Interviewer <span class="cherry-badge">CherryAI ✦</span></h2>
+        <p>Voice-powered technical & HR interview simulator with real-time posture, eye contact & filler word feedback.</p>
+      </div>
+    </div>
+
+    <!-- Interview Setup -->
+    <div class="interview-setup-wrap" id="interviewSetup">
+      <div class="interview-config">
+        <h3>Configure Your Session</h3>
+        <div class="config-grid">
+          <div class="config-card" id="cfg-domain">
+            <div class="cfg-icon">💻</div>
+            <h4>Domain</h4>
+            <select id="ivDomain">
+              <option>Python</option><option>Java</option><option>C/C++</option>
+              <option>DBMS</option><option>Operating Systems</option>
+              <option>Data Structures</option><option>HR</option><option>Full Stack</option>
+            </select>
+          </div>
+          <div class="config-card" id="cfg-difficulty">
+            <div class="cfg-icon">⚡</div>
+            <h4>Difficulty</h4>
+            <select id="ivDiff">
+              <option>Beginner</option><option selected>Intermediate</option><option>Expert</option>
+            </select>
+          </div>
+          <div class="config-card" id="cfg-rounds">
+            <div class="cfg-icon">🔄</div>
+            <h4>Questions</h4>
+            <select id="ivCount">
+              <option value="3">3 Questions</option>
+              <option value="5" selected>5 Questions</option>
+              <option value="10">10 Questions</option>
+            </select>
+          </div>
+          <div class="config-card" id="cfg-mode">
+            <div class="cfg-icon">🎯</div>
+            <h4>Mode</h4>
+            <select id="ivMode">
+              <option value="text">Text Mode</option>
+              <option value="voice">Voice Mode</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary full-width big-btn" onclick="startInterview()">🎤 Start Interview Session</button>
+      </div>
+
+      <div class="interview-tips">
+        <h4>💡 CherryAI Tips</h4>
+        <ul>
+          <li>Speak clearly and at a steady pace</li>
+          <li>Structure answers: Define → Explain → Example</li>
+          <li>Maintain eye contact with camera</li>
+          <li>Avoid filler words like "um", "uh", "like"</li>
+          <li>Sit upright — posture affects confidence score</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Live Interview Area -->
+    <div class="interview-live" id="interviewLive" style="display:none">
+      <div class="interview-main-col">
+        <div class="interview-progress-bar">
+          <div class="iv-progress-fill" id="ivProgressFill"></div>
+          <span id="ivProgressLabel">Q 1 / 5</span>
+        </div>
+        <div class="question-card">
+          <div class="q-number" id="qNumber">Q1</div>
+          <div class="q-text" id="qText">Loading question…</div>
+          <div class="q-domain-tag" id="qDomainTag"></div>
+        </div>
+
+        <div class="answer-area" id="answerArea">
+          <textarea id="answerText" class="answer-input" placeholder="Type your answer here…" rows="5"></textarea>
+        </div>
+        <div class="voice-controls" id="voiceControls" style="display:none">
+          <button class="btn-record" id="recordBtn" onclick="toggleRecording()">🎙️ Start Recording</button>
+          <div class="waveform" id="waveform"></div>
+          <p id="transcriptPreview" class="transcript-preview"></p>
+        </div>
+
+        <div class="iv-btn-row">
+          <button class="btn-primary" onclick="submitAnswer()">Submit Answer ✓</button>
+          <button class="btn-ghost" onclick="skipQuestion()">Skip →</button>
+          <button class="btn-danger" onclick="endInterview()">End Session</button>
+        </div>
+
+        <div class="feedback-card" id="feedbackCard" style="display:none">
+          <h4>🤖 AI Feedback</h4>
+          <div class="score-bars">
+            <div class="score-row"><span>Relevance</span><div class="sbar"><div class="sbar-fill" id="sbRelevance"></div></div><span id="stRelevance">—</span></div>
+            <div class="score-row"><span>Clarity</span><div class="sbar"><div class="sbar-fill" id="sbClarity"></div></div><span id="stClarity">—</span></div>
+            <div class="score-row"><span>Technical</span><div class="sbar"><div class="sbar-fill" id="sbTechnical"></div></div><span id="stTechnical">—</span></div>
+          </div>
+          <p class="feedback-text" id="feedbackText"></p>
+          <button class="btn-primary" onclick="nextQuestion()">Next Question →</button>
+        </div>
+      </div>
+
+      <div class="interview-side-col">
+        <div class="live-metrics">
+          <h4>Live Metrics</h4>
+          <div class="metric-item">
+            <span class="metric-icon">🙂</span>
+            <div>
+              <div class="metric-label">Posture</div>
+              <div class="metric-val" id="metPosture">Good ✓</div>
+            </div>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">👁️</span>
+            <div>
+              <div class="metric-label">Eye Contact</div>
+              <div class="metric-val" id="metEye">On Camera ✓</div>
+            </div>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">🔤</span>
+            <div>
+              <div class="metric-label">Filler Words</div>
+              <div class="metric-val" id="metFiller">0 detected</div>
+            </div>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">⏱️</span>
+            <div>
+              <div class="metric-label">Time Elapsed</div>
+              <div class="metric-val" id="metTimer">00:00</div>
+            </div>
+          </div>
+        </div>
+        <div class="camera-feed-box">
+          <div class="camera-placeholder">📸 Camera Feed<br/><small>MediaPipe Active</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="interview-results" id="interviewResults" style="display:none">
+      <h3>🏆 Interview Complete!</h3>
+      <div class="overall-score-ring">
+        <svg viewBox="0 0 120 120" class="score-ring">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#2a1a0e" stroke-width="8"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="url(#ringGrad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="94" id="scoreRingCircle"/>
+          <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF6B47"/><stop offset="100%" stop-color="#FFB347"/></linearGradient></defs>
+        </svg>
+        <div class="ring-score" id="overallScore">7.2<small>/10</small></div>
+      </div>
+      <div class="results-breakdown" id="resultsBreakdown"></div>
+      <div class="results-cta">
+        <button class="btn-primary" onclick="downloadReport()">⬇ Download PDF Report</button>
+        <button class="btn-ghost" onclick="restartInterview()">🔄 New Session</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ EXAM PROCTORING ═══════════════ -->
+  <section class="module-section" id="mod-proctor">
+    <div class="module-header">
+      <div class="module-icon-large">🛡️</div>
+      <div>
+        <h2>Exam Proctoring</h2>
+        <p>AI-powered exam integrity — face detection, mobile phone detection, gaze tracking. Zero video recording.</p>
+      </div>
+    </div>
+
+    <div class="proctor-layout">
+      <div class="proctor-config-col">
+        <div class="proctor-config-card">
+          <h3>⚙️ Session Settings</h3>
+          <div class="form-group">
+            <label>Exam Name</label>
+            <input type="text" id="examName" placeholder="e.g. Python Mid-Sem 2025"/>
+          </div>
+          <div class="form-group">
+            <label>Duration (minutes)</label>
+            <input type="number" id="examDuration" value="60" min="5" max="180"/>
+          </div>
+          <div class="proctor-toggles">
+            <div class="ptoggle">
+              <span>👤 Face Detection</span>
+              <label class="toggle"><input type="checkbox" id="tFace" checked/><span class="slider"></span></label>
+            </div>
+            <div class="ptoggle">
+              <span>📱 Phone Detection (YOLO)</span>
+              <label class="toggle"><input type="checkbox" id="tPhone" checked/><span class="slider"></span></label>
+            </div>
+            <div class="ptoggle">
+              <span>👁️ Gaze Tracking</span>
+              <label class="toggle"><input type="checkbox" id="tGaze" checked/><span class="slider"></span></label>
+            </div>
+            <div class="ptoggle">
+              <span>🔒 Privacy Mode (metadata only)</span>
+              <label class="toggle"><input type="checkbox" id="tPrivacy" checked/><span class="slider"></span></label>
+            </div>
+            <div class="ptoggle">
+              <span>🖥️ Tab-Switch Warning</span>
+              <label class="toggle"><input type="checkbox" id="tTab"/><span class="slider"></span></label>
+            </div>
+          </div>
+          <button class="btn-primary full-width" onclick="startProctoring()">🛡️ Start Proctoring</button>
+        </div>
+      </div>
+
+      <div class="proctor-monitor-col">
+        <div class="proctor-cam-box" id="proctorCamBox">
+          <div class="cam-placeholder" id="proctorCamPlaceholder">
+            <div class="cam-icon">📷</div>
+            <p>Camera will activate when session starts</p>
+          </div>
+          <video id="proctorVideo" style="display:none" autoplay muted></video>
+          <canvas id="proctorCanvas" style="display:none"></canvas>
+          <div class="cam-overlay" id="camOverlay" style="display:none">
+            <div class="cam-status" id="camStatus">🟢 Face Detected</div>
+            <div class="cam-alerts" id="camAlerts"></div>
+          </div>
+        </div>
+
+        <div class="proctor-log-box">
+          <div class="log-header">
+            <h4>📋 Event Log</h4>
+            <div class="log-timer" id="proctorTimer">00:00</div>
+          </div>
+          <div class="log-entries" id="proctorLog">
+            <div class="log-empty">No events recorded yet.</div>
+          </div>
+          <button class="btn-ghost full-width" style="margin-top:10px" onclick="exportCSV()">⬇ Export CSV</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PRESENTATION COACH ═══════════════ -->
+  <section class="module-section" id="mod-present">
+    <div class="module-header">
+      <div class="module-icon-large">🎯</div>
+      <div>
+        <h2>Presentation Coach</h2>
+        <p>Real-time gaze, pace, gestures, posture — get a final A–F scorecard every session.</p>
+      </div>
+    </div>
+
+    <div class="present-layout">
+      <div class="present-cam-col">
+        <div class="present-cam-box" id="presentCamBox">
+          <div class="cam-placeholder" id="presentCamPlaceholder">
+            <div class="cam-icon">🎥</div>
+            <p>Click Start to activate camera</p>
+            <small>MediaPipe Gaze + Posture analysis</small>
+          </div>
+          <video id="presentVideo" style="display:none" autoplay muted></video>
+          <canvas id="presentCanvas" style="display:none"></canvas>
+          <div class="gaze-dot" id="gazeDot" style="display:none"></div>
+        </div>
+
+        <div class="present-controls">
+          <button class="btn-primary" id="presentStartBtn" onclick="startPresentation()">▶ Start Session</button>
+          <button class="btn-danger" id="presentStopBtn" onclick="stopPresentation()" style="display:none">⏹ Stop & Score</button>
+        </div>
+      </div>
+
+      <div class="present-metrics-col">
+        <h3>📊 Live Dashboard</h3>
+        <div class="present-metrics-grid">
+          <div class="pm-card" id="pm-gaze">
+            <div class="pm-icon">👁️</div>
+            <div class="pm-label">Eye Contact</div>
+            <div class="pm-value" id="pmGaze">—</div>
+            <div class="pm-bar"><div class="pm-fill" id="pmGazeBar" style="width:0%"></div></div>
+          </div>
+          <div class="pm-card" id="pm-pace">
+            <div class="pm-icon">💬</div>
+            <div class="pm-label">Speaking Pace</div>
+            <div class="pm-value" id="pmPace">— WPM</div>
+            <div class="pm-hint">Ideal: 120–160 WPM</div>
+          </div>
+          <div class="pm-card" id="pm-filler">
+            <div class="pm-icon">🔇</div>
+            <div class="pm-label">Filler Words</div>
+            <div class="pm-value" id="pmFiller">0</div>
+            <div class="pm-detail" id="pmFillerDetail">um · uh · like: 0</div>
+          </div>
+          <div class="pm-card" id="pm-gesture">
+            <div class="pm-icon">🤲</div>
+            <div class="pm-label">Gestures</div>
+            <div class="pm-value" id="pmGesture">0</div>
+            <div class="pm-hint">More = More engaging</div>
+          </div>
+          <div class="pm-card" id="pm-posture">
+            <div class="pm-icon">🧍</div>
+            <div class="pm-label">Posture</div>
+            <div class="pm-value" id="pmPosture">—</div>
+          </div>
+          <div class="pm-card" id="pm-elapsed">
+            <div class="pm-icon">⏱️</div>
+            <div class="pm-label">Elapsed</div>
+            <div class="pm-value" id="pmElapsed">00:00</div>
+          </div>
+        </div>
+
+        <!-- Filler buzzer -->
+        <div class="filler-alert" id="fillerAlert" style="display:none">
+          ⚠️ Filler word detected!
+        </div>
+
+        <!-- Scorecard -->
+        <div class="scorecard" id="scorecard" style="display:none">
+          <h3>🏅 Final Scorecard</h3>
+          <div class="grade-grid" id="gradeGrid"></div>
+          <button class="btn-ghost full-width" style="margin-top:16px" onclick="saveAudio()">🎧 Save Audio Recording</button>
+          <button class="btn-primary full-width" style="margin-top:8px" onclick="resetPresentation()">🔄 New Session</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
